@@ -1,0 +1,25 @@
+.input {
+    border-radius: 10px;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+    border: 0 none;
+    outline: 0;
+    padding: 15px;
+    letter-spacing: 1px;
+}
+  
+.login {
+    width: 230px;
+    height: 44px;
+    color: var(--color-white);
+    background-color: var(--color-background-hover);
+}
+  
+label {
+    letter-spacing: 2px;
+}
+  
+.input.client-name {
+    padding: 10px;
+    height: 3rem;
+    width: 100%;
+}

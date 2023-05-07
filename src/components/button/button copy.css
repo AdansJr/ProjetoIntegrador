@@ -1,0 +1,131 @@
+.button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    width: 100px;
+    height: 38px;
+    text-transform: uppercase;
+    background-color: black;
+}
+
+
+.button.primary {  
+    background: var(--color-yellow);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border: 0 none;
+    outline: 0;
+    border-radius: 5px;
+    transition: 0.5s;
+  
+    font-weight: 700;
+}
+
+.button.primary:hover {
+    background-color: var(--color-yellow-hover);
+   
+}
+
+  
+.button.cancel-btn {
+    background: var(--color-red);
+    color: var(--color-white);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border: 0 none;
+    outline: 0;
+    border-radius: 5px;
+    transition: 0.5s;
+    margin-top: 10px;
+  
+    font-weight: 500;
+}
+
+.button.cancel-btn:hover {
+    background-color: var(--color-red-hover);
+}
+
+  
+.button.start-btn {
+    background: var(--color-red);
+    color: var(--color-white);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border: 0 none;
+    outline: 0;
+    border-radius: 5px;
+    transition: 0.5s;
+    margin-top: 10px;
+  
+    width: 165px;
+    font-weight: 500;
+}
+
+.button.start-btn:hover {
+    background-color: var(--color-red-hover);
+}
+  
+.confirm-btn {  
+    background: var(--color-green);
+    color: var(--color-white);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    border: 0 none;
+    outline: 0;
+    border-radius: 5px;
+    transition: 0.5s;
+    margin-top: 10px;
+  
+    width: 165px;
+    font-weight: 500;
+  
+}
+
+.confirm-btn:hover {
+    background-color: var(--color-green-hover);
+}
+
+  
+.button.secondary {
+    min-width: 70px;
+    max-width: 80px;
+    width: 70%;
+    height: 70px;
+    flex-wrap: wrap;
+    background: transparent;
+    border: 2px solid var(--color-yellow);
+    box-shadow: 2px 3px 4px rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+    color: var(--color-yellow);
+    margin: 20px 5px 0 5px;
+    margin-top: 20px;
+    font-size: 10px;
+    text-transform: uppercase;
+}
+
+.button.secondary:hover {
+    color: var(--color-white);
+    background: var(--color-yellow);
+}
+  
+.button.secondary.span {
+    width: 100%;
+    font-size: 1.5rem;
+}
+  
+.button.secondary.active {
+    color: var(--color-white);
+    background: var(--color-yellow);
+}
+  
+.signout-btn {
+    background-color: transparent;
+    border: none;
+    color: black;
+    width: auto;
+}
+
+.signout-btn:hover {
+    color: var(--color-yellow);
+}
+ 
+.signout-btn.span {
+    font-size: 2rem;
+}
