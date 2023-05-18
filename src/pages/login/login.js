@@ -4,91 +4,84 @@ import "./login.css";
 
 import Input from "../../components/input/input";
 import Button from "../../components/button/button";
-import Modal from "../../components/modal/modal";
+import Header from "../../components/header/header";
 
-//import { loginWithEmailAndPassword } from "../../services/services";
+import { loginWithEmailAndPassword } from "../../services/services";
 
-const validate = (values) => {
+const validate = (email, password) => {
   const mailFormat =
     /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
-  if (!values.email || mailFormat.test(values.email) === false) {
+  if (!email || mailFormat.test(email) === false) {
     return "Escreva um email válido";
-  } else if (!values.password || values.password.length < 6) {
-    return "E-mail ou senha digitados incorretamente...";
+  } else if (!password) {
+    return "Preencha os campos corretamente";
   }
   return "";
 }
 
 function LoginPage() {
 
-  const history = useNavigate();
+  const navigate = useNavigate();
   const [errorNotice, setError] = useState("");
 
-  const [values, setValues] = useState({
-    email: "",
-    password: "",
-  });
+  const [emailInput, setEmail] = useState("");
+  const [passwordInput, setPassword] = useState("");
 
-  const onChange = (event) => {
-    const { value, name } = event.target;
-    setValues({
-      ...values,
-      [name]: value,
-    });
+  const handleClick = (event) => {
+    event.preventDefault();
+    const invalid = validate(emailInput, passwordInput);
+    setError(invalid);
+
+    if (!invalid) {
+      loginWithEmailAndPassword(emailInput, passwordInput)
+        .then((user) => {
+          const id = user.id;
+          const role = user.role;
+
+          if (id !== undefined) {
+            localStorage.setItem("userID", user.id);
+            localStorage.setItem("userName", user.name);
+            navigate(`/${role}`);
+          } else {
+            alert(`Email e/ou senha incorretos`);
+          }
+        })
+        .catch(() => {
+          navigate("/ErrorPage");
+        });
+    }
   };
-
-  const navigateTo = (paths) => {
-    const timer = setTimeout(() => {
-      history.push(paths);
-    }, 3000);
-    return () => clearTimeout(timer);
-  };
-
-  function initialStateModal() {
-    return { header: "", icon: "", children: "", isOpen: false, type: "" };
-  }
-
-
-
-
 
 
   return (
-    <section id="Login" className="Login">
+    <section id="Login" className="container">
 
-      <img
-        className="logo"
-        src="/header.png"
-        alt="salao">
-      </img>
+      <Header></Header>
 
-      <form id="login_form" className="Form">
+      <form id="login_form" className="standard">
         <Input
           variant="login"
           placeholder="E-mail"
           type="email"
-          value={values.email}
-          name="email"
-          onChange={(e) => onChange(e)}
+          value={emailInput}
+          onChange={(e) => setEmail(e.target.value)}
         />
 
         <Input
           variant="login"
           placeholder="Senha"
           type="password"
-          value={values.password}
-          name="password"
-          onChange={(e) => onChange(e)}
+          value={passwordInput}
+          onChange={(e) => setPassword(e.target.value)}
         />
 
+        <p className="paragraph-error">{errorNotice} &nbsp;</p>
+
         <Button
-          variant="login"
-          //onClick={(e) => onSubmit(e, values.email, values.password)}
+          variant="primary"
+          onClick={(e) => handleClick(e, emailInput, passwordInput)}
           type="submit"
-          className="btn btn-primary"
-          role="button"
-          testid="login-btn"
         >
           Entrar
         </Button>
@@ -98,13 +91,9 @@ function LoginPage() {
         </a></span></p>
 
       </form>
-
-
-
     </section >
   );
 
 };
-
 
 export default LoginPage;
