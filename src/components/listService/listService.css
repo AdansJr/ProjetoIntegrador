@@ -1,0 +1,25 @@
+/* .Container {
+    margin-top: 20px;
+} */
+
+.serviceContainer{
+    background-color: #f8f8f8;
+    margin: 20px;
+    padding: 10px;
+    min-width: 320px;
+    border-radius: 5px;
+    border: 1px solid gray;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    height: 84px;
+}
+
+.scheduleTitle{
+    color: purple;
+}
+
+.service h4 {
+    margin-bottom: 5px;
+}
