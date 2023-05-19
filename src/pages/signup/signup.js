@@ -51,9 +51,9 @@ function SignUpPage() {
 
     const [modal, setModalValues] = useState(initialStateModal);
 
-    const timeOut = (path) => {
+    const timeOut = () => {
         const timer = setTimeout(() => {
-            navigate(`/${path}`);
+            navigate("/");
         }, 3000);
         return () => clearTimeout(timer);
     };
@@ -74,9 +74,7 @@ function SignUpPage() {
                             children: "",
                             isOpen: true,
                         });
-                        localStorage.setItem("userToken", response.token);
-                        localStorage.setItem("userId", response.id);
-                        timeOut(response.role);
+                        timeOut();
                     } else {
                         alert("Erro: " + response.error);
                     }

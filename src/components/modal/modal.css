@@ -1,11 +1,10 @@
 .modal {
     position: absolute;
     display: flex;
-    width: 236px;
-    height: 270px;
-    color: var(--color-white);
-    background-color: var(--color-background-hover);
-    box-shadow: -4px 5px 4px rgba(0, 0, 0, 0.7);
+    width: 256px;
+    height: 300px;
+    color: rgb(2, 2, 2);
+    background-color: rgb(241, 241, 241);
     border-radius: 10px;
     left: 50%;
     top: 50%;
@@ -13,41 +12,20 @@
     justify-content: center;
     flex-wrap: wrap;
     z-index: 2;
-    padding: 5px;
+    padding: 15px;
 }
-
-    span {
-      font-size: 65px;
-      flex-basis: 100%;
-      text-align: center;
-      margin: auto;
-    }
-  
-    button span {
-      margin: 0;
-      flex-basis: 0;
-    }
-  
-    .times-circle {
-      color: var(--color-red);
-    }
+ 
+.times-circle {
+  color: rgb(25, 73, 25);
+  font-size: 65px;
+  flex-basis: 100%;
+  text-align: center;
+  margin: auto;
+}
     
-    .check-circle{
-      color: var(--color-green);
-    }
-  
-    p {
-      text-align: center;
-    }
-    
-    .msg {
-      font-size: 1.5rem;
-      margin-bottom: 30px;
-    }
-  
-.modal-paragraph {
-      font-size: 0.8rem;
-      margin-top: 10px;
-    }
-
-
+   
+.msg {
+  font-size: 1.5rem;
+  margin-bottom: 30px;
+  text-align: center;
+}
