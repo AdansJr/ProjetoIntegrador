@@ -1,0 +1,40 @@
+.appointContainer {
+    margin-top: 20px;
+}
+
+.appointContainer h3 {
+    padding-left: 15px;
+}
+
+.center {
+    text-align: center;
+}
+
+.appointment{
+    background-color: #efe3f5;
+    margin: 20px;
+    padding: 10px;
+    min-width: 320px;
+    border-radius: 0 10px 10px 0px;
+    border-left: 6px solid !important;
+    border-color: purple !important;
+    border: 1px solid;
+}
+
+.scheduleTitle{
+    color: purple;
+}
+
+.scheduleContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.scheduleInfo{
+    font-size: 1rem;
+}
+
+.scheduleInfo p{
+    margin-top: 10px;
+}

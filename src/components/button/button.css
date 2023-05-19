@@ -1,8 +1,7 @@
 *{
     --orchid: #3b205f;
-    --orchid-hover: #C89DFF;
-
-    --beeswax: 240, 219, 170;
+    --orchid-hover: #214864;
+    --beeswax: rgba(240, 219, 170);
 }
 
 .button {
@@ -14,21 +13,37 @@
     background: var(--orchid);
     color: white;
     font-size: 16px;
-}
-
-.button.login {
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     border: 0 none;
     outline: 0;
     border-radius: 5px;
+}
+
+.button.primary {
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     transition: 0.5s;
     width: 280px;
     margin-top: 20px;
+    margin-bottom: 20px;
     font-weight: 600;
 }
 
-.button.login:hover {
+.button:hover {
     background-color: var(--orchid-hover);
     cursor: pointer;
     color: white;
+}
+
+.secondary {
+    font-size: 13px;
+    width: 90px;
+    height: 45px;
+    background-color:#4e2c4e;
+}
+
+.select {
+    background-color: green;
+    width: 95px;
+    height: 40px;
+    font-size: 13px;
+    border-radius: 15px;
 }
