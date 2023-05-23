@@ -23,6 +23,7 @@
 .quero_agendar p {
     color: white;
     margin-bottom: 30px;
+    font-weight: bold;
 }
 
 .container.home {

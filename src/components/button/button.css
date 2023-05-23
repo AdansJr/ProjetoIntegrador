@@ -18,6 +18,10 @@
     border-radius: 5px;
 }
 
+.button:hover {
+    cursor:pointer;
+}
+
 .button.primary {
     box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     transition: 0.5s;
@@ -27,9 +31,8 @@
     font-weight: 600;
 }
 
-.button:hover {
+.primary:hover, .secondary:hover {
     background-color: var(--orchid-hover);
-    cursor: pointer;
     color: white;
 }
 
@@ -47,3 +50,24 @@
     font-size: 13px;
     border-radius: 15px;
 }
+
+.select:hover {
+    background-color: rgb(9, 49, 9);
+    font-weight: bold;
+}
+
+.prev-btn, .next-btn {
+    height: auto;
+    font-size: 30px;
+    background: none;
+    flex: 1;
+}
+
+.prev-btn {
+    justify-content: flex-end;
+}
+
+.next-btn {
+    justify-content: start;
+}
+
