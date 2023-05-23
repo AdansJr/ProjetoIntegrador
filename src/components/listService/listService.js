@@ -1,11 +1,9 @@
 import Button from "../button/button";
 import "./listService.css";
 
-
 function ListService({content, onClick}) {
     return (
         <section className="appointContainer">
-
             {content.map((service) => {
                 return (
                     <div className="serviceContainer" key={service.id}>
@@ -18,8 +16,9 @@ function ListService({content, onClick}) {
                             variant="select"
                             onClick={(e) => onClick(e)}
                             type="submit"
-                            value={service.id}
-                            name="id_servico"
+                            value={service.preco}
+                            name={service.nome}
+                            id={service.id}
                         > Selecione
                         </Button>
 

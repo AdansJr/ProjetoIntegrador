@@ -8,7 +8,7 @@ const Step = (props) => {
         <div className ={count > children ? `${preClassName} completed`: preClassName}>
             <div className="step-counter">
                 {count > children ? 
-           (<span className="check"><FaCheck/></span>) : `${children}`}</div>
+           (<FaCheck/>) : `${children}`}</div>
             <div className="step-name"></div>
         </div>
     )
