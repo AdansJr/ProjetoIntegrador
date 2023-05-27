@@ -1,17 +1,13 @@
 import Button from "../button/button";
 
-function CalendarDays({ listDays }) {
-    const changeCurrentDay = (e) => {
-        console.log("clicou")
-    };
-
+function CalendarDays({ listDays, onClick, values }) {
     return (
         <div className="table-content">
             {
                 listDays.map((day, key) => {
                     return (
-                        <Button variant={"calendar-day"}
-                            onClick={() => changeCurrentDay(day)}
+                        <Button variant={values.dia === day.number ? "calendar-day" : ""}
+                            onClick={() => onClick(day.number)}
                             key={key}
                             children={day.number}
                             isDisabled={!day.status}>

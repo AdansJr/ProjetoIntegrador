@@ -1,4 +1,4 @@
-function DateList({onClick, weekdays}) {
+function DateList({weekdays}) {
     return (
         <section className="">
             <div className="table-header">

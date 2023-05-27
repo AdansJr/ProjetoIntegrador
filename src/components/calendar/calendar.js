@@ -1,44 +1,62 @@
-import { FcNext,FcPrevious } from "react-icons/fc";
 import Button from "../button/button";
 import "./calendar.css";
 
+import { RiArrowGoBackLine } from "react-icons/ri";
 import DateList from "./dateList";
 import CalendarDays from "./calendarDays";
+import CalendarHeader from "./calendar-header";
+import TimeList from "./timeList";
 
-function Calendar({ content, values, onClickLeft, onClickRight, listDays, weekdays }) {
-    const months = [
-        "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-        "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
-    ];
+function Calendar(props) {
 
     return (
         <>
-            <div className="selectedServiceArea">
-                <h4>{content.servico}</h4><p>R${content.preco}</p>
+            <div className="flex">
+                <Button
+                    variant="go-back"
+                    onClick={props.goBack}
+                    children={<RiArrowGoBackLine />}>
+                </Button>
+                <div className="selectedServiceArea">
+                    <h4>{props.content.servico}</h4>
+                    <p>R${props.content.preco}</p>
+                </div>
             </div>
 
             <section className="calendar-container">
-                <div className="calendarHeader">
-                <Button
-                    variant="prev-btn"
-                    children={<FcPrevious />}
-                    onClick={onClickLeft}
-                ></Button>
+                <CalendarHeader
+                    onClickLeft={props.onClickLeft} onClickRight={props.onClickRight}
+                    values={props.values}
+                ></CalendarHeader>
 
-                <div className="dateTitleContainer"><h4 className="dateTitle">{months[values.mes]} {values.ano}</h4></div>
-
-                <Button
-                    variant="next-btn"
-                    children={<FcNext />}
-                    onClick={onClickRight}
-                ></Button>
-            </div>
-
-            <div className="calendar-body">
-                <DateList weekdays={weekdays}></DateList>
-                <CalendarDays listDays={listDays} values={values}></CalendarDays>
-            </div>
+                <div className="calendar-body">
+                    <DateList weekdays={props.weekdays}></DateList>
+                    <CalendarDays listDays={props.listDays}
+                        values={props.values}
+                        onClick={props.onClick}>
+                    </CalendarDays>
+                </div>
             </section>
+
+            {props.listHours.length > 0 &&
+                <TimeList
+                    values={props.values}
+                    handleSelectHour={props.handleSelectHour}
+                    listHours={props.listHours}
+                ></TimeList>
+            }
+
+            {props.values.hora !== null &&
+                (<div className="standard">
+                    <Button
+                        children="Finalizar Agendamento"
+                        variant="primary"
+                        onClick={props.handleFinishBtn}
+                    >
+                    </Button >
+                </div>)
+            }
+
         </>
     )
 }

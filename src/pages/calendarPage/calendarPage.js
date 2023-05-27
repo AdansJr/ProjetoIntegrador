@@ -6,7 +6,6 @@ import ListService from "../../components/listService/listService";
 import ProgressBar from "../../components/progress_bar/progress_bar";
 import Calendar from "../../components/calendar/calendar";
 
-
 import { getServices } from "../../services/services";
 import { getAvailableDate } from "../../services/services"
 import { setAppointment } from "../../services/services";
@@ -14,21 +13,19 @@ import { setAppointment } from "../../services/services";
 const userID = localStorage.getItem('userID');
 
 function initialState() {
-    return {
-        servico: "",
-        id_user: userID,
-        dia: 0,
-        hora: null,
-        mes: 0,
-        ano: 0
-    };
+    return {  servico: "",
+    id_user: userID,
+    dia: 0,
+    hora: null,
+    mes: 0,
+    ano: 0 };
 }
 
-function SchedulePage() {
+function CalendarPage() {
 
     const navigate = useNavigate();
     const steps = [1, 2, 3];
-
+    
     const weekdays = ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sab"];
 
     const [page, setPage] = useState("service");
@@ -38,10 +35,12 @@ function SchedulePage() {
     const [listHours, setListHours] = useState(null);
 
     const [values, setValues] = useState(initialState);
+
     const [selectedService, setSelectedService] = useState({
         servico: "",
         preco: ""
     });
+
 
     useEffect(() => {
         getServices().then((list) => {
@@ -73,22 +72,8 @@ function SchedulePage() {
 
                     let availability = list.filter(item => item.date === selectedDate);
 
-                    let today = new Date();
-                    today = today.setHours(0, 0, 0, 0);
-                    // console.log("today", today)
-                    let date = new Date(year, month, day);
-                    let avaiable;
-// console.log("date",date)
-                    if (date < today) {
-                        avaiable = false;
-                    } else if (availability.length > 0) {
-                        avaiable = true
-                    } else {
-                        avaiable = false
-                    };
-
                     newListDays.push({
-                        status: avaiable,
+                        status: availability.length > 0 ? true : false,
                         weekday: weekdays[d.getDay()],
                         number: i
                     })
@@ -139,45 +124,14 @@ function SchedulePage() {
             month = month < 10 ? '0' + month : month;
             day = day < 10 ? '0' + day : day;
             let selectedDate = `${year}-${month}-${day}`;
-            let newListHours = [];
-
-            let today = new Date();
-            let todayYear = today.getFullYear();
-            let todayMonth = today.getMonth();
-            let todayDay = today.getDate();
-            todayMonth = todayMonth < 10 ? '0' + todayMonth : todayMonth;
-            todayDay = todayDay < 10 ? '0' + todayDay : todayDay;
-            today = `${todayYear}-${todayMonth}-${todayDay}`
-            let todayHour = new Date().getHours();
-            todayHour = `${todayHour}:00`;
 
             getAvailableDate()
                 .then((list) => {
                     let availability = list.filter(item => item.date === selectedDate);
-                    
-                    if (today === selectedDate && availability.length > 0) {
-                        for (let i = 0; i < availability[0].hours.length; i++) {
-                            if (availability[0].hours[i] > todayHour) {
-                                newListHours.push({
-                                    hora: availability[0].hours[i],
-                                    status: false,
-                                })
-                            } else {
-                                newListHours.push({
-                                    hora: availability[0].hours[i],
-                                    status: true,
-                                })
-                            }
-                        }
-                    } else if (availability.length > 0) {
-                        for (let i = 0; i <availability[0].hours.length; i++) {
-                            newListHours.push({
-                                hora: availability[0].hours[i],
-                                status: false,
-                            })
-                        }
+                    if (availability.length > 0) {
+                        setListHours(availability[0].hours
+                        )
                     }
-                    setListHours(newListHours);
                 })
         }
         setValues({
@@ -198,7 +152,20 @@ function SchedulePage() {
         }));
     }, []);
 
-    const handleSelectService = (e) => {
+    useEffect(() => {
+        if (values.hora !== null && values.dia > 0) {
+            setActiveStep(3);
+        } else if (values.hora == null) {
+            setActiveStep(1);
+        }else {
+            setActiveStep(2);
+        }
+    }, [values.hora, values.dia]);
+console.log("hora", values.hora)
+console.log(values.dia)
+
+console.log(activeStep)
+    const handleSelect = (e) => {
         e.preventDefault();
         const { value, name, id } = e.target;
         const update = { "servico": id };
@@ -243,7 +210,6 @@ function SchedulePage() {
             ...values,
             "dia": day
         })
-        setActiveStep(2);
     };
 
     const handleSelectHour = (hour) => {
@@ -251,18 +217,6 @@ function SchedulePage() {
             ...values,
             "hora": hour
         });
-        setActiveStep(3);
-    };
-
-    const handleGoBack = () => {
-        setPage("service");
-        setActiveStep(1);
-        setValues({
-            ...values,
-            "hora": null,
-            "dia": 0
-        })
-        setListHours([]);
     };
 
     const handleFinish = () => {
@@ -292,18 +246,25 @@ function SchedulePage() {
         setActiveStep(1);
     }
 
+
+    // const prevStep = () => {
+    //     setActiveStep(activeStep - 1)
+    // }
+
+    // const totalSteps = steps.length
+
     return (
         <section id="home" className="container home">
             <Header></Header>
-            <main className="main">
 
+            <main className="main">
                 <ProgressBar steps={steps} count={activeStep} ></ProgressBar>
 
                 {page === "service" &&
-                    (<ListService content={allServices} onClick={handleSelectService}></ListService>)}
+                    (<ListService content={allServices} onClick={handleSelect}></ListService>)}
 
                 {page === "schedule" &&
-                    <Calendar
+                    (<Calendar
                         content={selectedService}
                         values={values}
                         onClickLeft={handlePrevMonthBtn}
@@ -314,11 +275,10 @@ function SchedulePage() {
                         onClick={handleSelectedDay}
                         handleSelectHour={handleSelectHour}
                         handleFinishBtn={handleFinish}
-                        goBack={handleGoBack}
-                    />}
+                    />)}
             </main>
         </section>
     )
 }
 
-export default SchedulePage;
+export default CalendarPage;
