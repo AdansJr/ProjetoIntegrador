@@ -1,7 +1,15 @@
 :root {
+  --teal-050: #effcf6;
+  --teal-100: #c6f7e2;
+  --teal-200: #8eedc7;
+  --teal-300: #65d6ad;
+  --teal-400: #3ebd93;
+  --teal-500: #27ab83;
   --teal-600: #199473;
+  --teal-700: #147d64;
+  --teal-800: #0c6b58;
   --teal-900: #014d40;
-  --blue-grey-100: #d9e2ec;
+
   --blue-grey-050: #f0f4f8;
   --blue-grey-100: #d9e2ec;
   --blue-grey-200: #bcccdc;
@@ -12,6 +20,20 @@
   --blue-grey-700: #334e68;
   --blue-grey-800: #243b53;
   --blue-grey-900: #102a43;
+}
+
+.selectedServiceArea {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 340px;
+  margin: auto;
+  align-items: center;
+  font-size: 15px;
+  border-radius: 10px;
+  border: 1px solid;
+  padding: 15px 8px;
+  margin-right: 10px;
 }
 
 .calendarHeader {
@@ -27,19 +49,6 @@
   text-align: center;
   align-self: center;
   color: var(--blue-grey-100);
-}
-
-.selectedServiceArea {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  width: 340px;
-  margin: auto;
-  align-items: center;
-  font-size: 15px;
-  border-radius: 10px;
-  border: 1px solid;
-  padding: 15px 8px;
 }
 
 .calendar-container {
@@ -60,6 +69,7 @@
 .table-content {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
+  justify-items: center;
 }
 
 .table-header {
@@ -89,20 +99,43 @@
 }
 
 .table-content button:hover:enabled,
-.table-content button:focus:enabled {
+.table-content button:focus:enabled,
+.calendar-day:enabled {
   outline: none;
-  background-color: var(--teal-600);
-  color: var(--blue-grey-100);
-  font-weight: 700;
-}
-
-.table-content button:active:enabled,
-.table-content button.is-selected {
-  background-color: var(--teal-100);
-  color: var(--teal-900);
+  background-color: var(--teal-700);
+  color: var(--blue-grey-050);
 }
 
 .table-content button:disabled {
   outline: none;
   color: var(--blue-grey-600);
+}
+
+.time-list-container {
+  position: relative;
+  height: 62px; 
+  margin: 1em auto;
+  border: 1px solid black;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  border-radius: 10px;
+  background-color: rgba(209, 206, 206, 0.5);
+}
+
+.time-list {
+  height: 70px;
+  box-sizing: border-box;
+  white-space: nowrap;
+  /* overflow-x: auto; */
+  /* overflow-y: hidden; */
+  /* -webkit-overflow-scrolling: touch; */
+  scroll-behavior: smooth;
+  margin: 10px 30px;
+  overflow: hidden;
+  /* display: flex; */
+  /* justify-content: space-between; */
+}
+
+.flex {
+  display: flex;
 }
