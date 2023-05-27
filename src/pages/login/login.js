@@ -59,7 +59,7 @@ function LoginPage() {
 
       <Header></Header>
 
-      <form id="login_form" className="standard">
+      <form id="login_form" className="standard gradient">
         <Input
           variant="login"
           placeholder="E-mail"

@@ -20,6 +20,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+}
+
+.gradient {
     background-image: linear-gradient( to bottom, #fff 50%, #e1d7dc, #C89DFF, #80A7D0)
 }
 

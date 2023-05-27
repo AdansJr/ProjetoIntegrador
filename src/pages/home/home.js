@@ -49,7 +49,7 @@ const HomePage = () => {
         <section id="home" className="container home">
             <Header></Header>
 
-            <main className="main">
+            <main className="main gradient">
                 <h1 className="welcome">Olá, {localStorage.getItem('userName')}</h1>
                
                 <List content={allSchedules} onClick={handleDelete}></List>
