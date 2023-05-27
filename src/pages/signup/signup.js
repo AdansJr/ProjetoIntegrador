@@ -90,7 +90,7 @@ function SignUpPage() {
 
             <Header></Header>
 
-            <form id="signup_form" className="standard">
+            <form id="signup_form" className="standard gradient">
                 <Input
                     variant="login"
                     placeholder="Nome"
