@@ -1,0 +1,13 @@
+.errorpage-container {
+    text-align: center;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    padding: 100px;
+}
+
+h1 {
+  color: rgb(58, 108, 245);  
+}
+
+h3 {
+    color: rgb(114, 111, 111);
+}
