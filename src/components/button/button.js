@@ -1,11 +1,8 @@
 import "./button.css";
 
 const Button = (props) => {
-  const className = `button ${props.variant}`;
-  const classNameActive = `button ${props.variant} active`;
-
   return (
-    <button className={props.active === props.value ? classNameActive : className}
+    <button className={`button ${props.variant}`}
       onClick={props.onClick}
       id={props.id} 
       value={props.value} 

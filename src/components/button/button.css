@@ -1,4 +1,4 @@
-*{
+* {
     --orchid: #3b205f;
     --orchid-hover: #214864;
     --beeswax: rgba(240, 219, 170);
@@ -19,7 +19,7 @@
 }
 
 .button:hover {
-    cursor:pointer;
+    cursor: pointer;
 }
 
 .button.primary {
@@ -40,7 +40,7 @@
     font-size: 13px;
     width: 90px;
     height: 45px;
-    background-color:#4e2c4e;
+    background-color: #4e2c4e;
 }
 
 .select {
@@ -71,3 +71,63 @@
     justify-content: start;
 }
 
+.time-item {
+    display: inline-block;
+    width: 75px;
+    height: 40px;
+    font-size: 15px;
+    box-sizing: border-box;
+    background-color: transparent;
+}
+
+.time-item:enabled {
+    color: black;
+}
+
+.time-item:disabled {
+    outline: none;
+    color: var(--blue-grey-600);
+    text-decoration: line-through;
+}
+
+.time-item:hover:enabled,
+.time-item:focus:enabled,
+.time-item.active:enabled {
+    background-color: var(--teal-700);
+    color: var(--blue-grey-050);
+}
+
+.time-item:enabled:last-child {
+    margin-right: 0px;
+}
+
+.paddle {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 25px;
+    height: auto;
+    font-size: 40px;
+    background-color: transparent;
+}
+
+.left-paddle {
+    left: 0;
+}
+
+.right-paddle {
+    right: 0;
+}
+
+.hidden {
+    display: none;
+}
+
+.go-back {
+    height: auto;
+    width: 50px;
+    background-color: rgb(247, 227, 222);
+    font-size: 30px;
+    color: black;
+    margin: 0px 5px;
+}
