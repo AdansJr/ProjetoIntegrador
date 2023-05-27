@@ -126,14 +126,9 @@
   height: 70px;
   box-sizing: border-box;
   white-space: nowrap;
-  /* overflow-x: auto; */
-  /* overflow-y: hidden; */
-  /* -webkit-overflow-scrolling: touch; */
   scroll-behavior: smooth;
   margin: 10px 30px;
   overflow: hidden;
-  /* display: flex; */
-  /* justify-content: space-between; */
 }
 
 .flex {
