@@ -19,7 +19,7 @@ function Calendar(props) {
                 </Button>
                 <div className="selectedServiceArea">
                     <h4>{props.content.servico}</h4>
-                    <p>R${props.content.preco}</p>
+                    <p>R$ {props.content.preco},00</p>
                 </div>
             </div>
 

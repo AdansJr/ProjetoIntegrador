@@ -8,18 +8,6 @@ import Header from "../../components/header/header";
 
 import { loginWithEmailAndPassword } from "../../services/services";
 
-const validate = (email, password) => {
-  const mailFormat =
-    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
-  if (!email || mailFormat.test(email) === false) {
-    return "Escreva um email válido";
-  } else if (!password) {
-    return "Preencha os campos corretamente";
-  }
-  return "";
-}
-
 function LoginPage() {
 
   const navigate = useNavigate();
@@ -30,27 +18,25 @@ function LoginPage() {
 
   const handleClick = (event) => {
     event.preventDefault();
-    const invalid = validate(emailInput, passwordInput);
-    setError(invalid);
 
-    if (!invalid) {
-      loginWithEmailAndPassword(emailInput, passwordInput)
-        .then((user) => {
-          const id = user.id;
-          const role = user.role;
+    loginWithEmailAndPassword(emailInput, passwordInput)
+      .then((user) => {
+        const id = user.ClienteID;
+        const nome = user.Nome;
 
-          if (id !== undefined) {
-            localStorage.setItem("userID", user.id);
-            localStorage.setItem("userName", user.name);
-            navigate(`/${role}`);
-          } else {
-            alert(`Email e/ou senha incorretos`);
-          }
-        })
-        .catch(() => {
-          navigate("/ErrorPage");
-        });
-    }
+        if (user.ClienteID !== "undefined") {
+          localStorage.setItem("userID", id);
+          localStorage.setItem("userName", nome);
+          navigate("/home");
+        } else {
+          setError("Email e/ou senha incorretos");
+        }
+      })
+      .catch((e) => {
+        console.log(e)
+        navigate("/ErrorPage");
+      });
+
   };
 
 

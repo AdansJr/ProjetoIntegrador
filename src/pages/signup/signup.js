@@ -63,12 +63,11 @@ function SignUpPage() {
         const invalid = validate(values);
         setError(invalid);
 
-        console.log(values.email, values.name, values.password, values.repeatPassword);
-
         if (!invalid) {
-            signUp(values.name, values.email, values.password)
+            signUp(values.email, values.password, values.name)
                 .then((response) => {
-                    if (response.token) {
+                    console.log("resp",response);
+                    if (response.ClienteID) {
                         setModalValues({
                             header: "Cadastro realizado com sucesso!",
                             children: "",
@@ -79,7 +78,7 @@ function SignUpPage() {
                         alert("Erro: " + response.error);
                     }
                 })
-                .catch(() => {
+                .catch((e) => {
                     navigate("/ErrorPage");
                 });
         }

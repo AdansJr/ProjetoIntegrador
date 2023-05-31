@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import Header from "../../components/header/header";
-import ListService from "../../components/listService/listService";
+import ListService from "../../components/listService/listService"; 
 import ProgressBar from "../../components/progress_bar/progress_bar";
 import Calendar from "../../components/calendar/calendar";
 
@@ -11,7 +11,7 @@ import { getServices } from "../../services/services";
 import { getAvailableDate } from "../../services/services"
 import { setAppointment } from "../../services/services";
 
-const userID = localStorage.getItem('userID');
+const userID = localStorage.getItem("userID");
 
 function initialState() {
     return {
@@ -36,8 +36,9 @@ function SchedulePage() {
     const [allServices, setAllServices] = useState([]);
     const [listDays, setListDays] = useState([]);
     const [listHours, setListHours] = useState(null);
-
+    
     const [values, setValues] = useState(initialState);
+    const [selectedDate, setSelectedDate] = useState("");
     const [selectedService, setSelectedService] = useState({
         servico: "",
         preco: ""
@@ -67,18 +68,17 @@ function SchedulePage() {
                     let year = firstDayOfMonth.getFullYear();
                     let month = firstDayOfMonth.getMonth();
                     let day = d.getDate();
-                    month = month < 10 ? '0' + month : month;
-                    day = day < 10 ? '0' + day : day;
+                    month = month < 10 ? "0" + month : month;
+                    day = day < 10 ? "0" + day : day;
                     let selectedDate = `${year}-${month}-${day}`;
 
                     let availability = list.filter(item => item.date === selectedDate);
 
                     let today = new Date();
                     today = today.setHours(0, 0, 0, 0);
-                    // console.log("today", today)
                     let date = new Date(year, month, day);
                     let avaiable;
-// console.log("date",date)
+
                     if (date < today) {
                         avaiable = false;
                     } else if (availability.length > 0) {
@@ -101,7 +101,7 @@ function SchedulePage() {
                         newListDays.unshift({
                             status: false,
                             weekday: weekdays[firstDayBefore.getDay() - i],
-                            number: firstDayBefore.getDate()
+                            number: firstDayBefore.getDate() - i
                         })
                     }
                 }
@@ -136,17 +136,17 @@ function SchedulePage() {
             let year = d.getFullYear();
             let month = d.getMonth();
             let day = d.getDate();
-            month = month < 10 ? '0' + month : month;
-            day = day < 10 ? '0' + day : day;
+            month = month < 10 ? "0" + month : month;
+            day = day < 10 ? "0" + day : day;
             let selectedDate = `${year}-${month}-${day}`;
             let newListHours = [];
-
+            setSelectedDate(selectedDate);
             let today = new Date();
             let todayYear = today.getFullYear();
             let todayMonth = today.getMonth();
             let todayDay = today.getDate();
-            todayMonth = todayMonth < 10 ? '0' + todayMonth : todayMonth;
-            todayDay = todayDay < 10 ? '0' + todayDay : todayDay;
+            todayMonth = todayMonth < 10 ? "0" + todayMonth : todayMonth;
+            todayDay = todayDay < 10 ? "0" + todayDay : todayDay;
             today = `${todayYear}-${todayMonth}-${todayDay}`
             let todayHour = new Date().getHours();
             todayHour = `${todayHour}:00`;
@@ -156,6 +156,7 @@ function SchedulePage() {
                     let availability = list.filter(item => item.date === selectedDate);
                     
                     if (today === selectedDate && availability.length > 0) {
+                        
                         for (let i = 0; i < availability[0].hours.length; i++) {
                             if (availability[0].hours[i] > todayHour) {
                                 newListHours.push({
@@ -200,8 +201,8 @@ function SchedulePage() {
 
     const handleSelectService = (e) => {
         e.preventDefault();
-        const { value, name, id } = e.target;
-        const update = { "servico": id };
+        const { value, name } = e.target;
+        const update = { "servico": name };
         const service = { "servico": name, "preco": value };
 
         setValues(prevState => ({
@@ -225,6 +226,7 @@ function SchedulePage() {
             "mes": mountDate.getMonth(),
             "dia": 0
         })
+        setActiveStep(2);
     };
 
     const handlePrevMonthBtn = (e) => {
@@ -236,6 +238,7 @@ function SchedulePage() {
             "mes": mountDate.getMonth(),
             "dia": 1
         })
+        setActiveStep(2);
     };
 
     const handleSelectedDay = (day) => {
@@ -268,22 +271,17 @@ function SchedulePage() {
     const handleFinish = () => {
         if (values.servico &&
             values.id_user &&
-            values.dia &&
             values.hora &&
-            values.mes &&
-            values.ano !== null
+            selectedDate !== null
         ) {
             setAppointment(values.servico,
-                values.id_user,
-                values.dia,
-                values.hora,
-                values.mes,
-                values.ano)
+                values.id_user, values.hora,
+                selectedDate)
                 .then(() => {
                     navigate("/home");
                 })
-                .catch((resp) => {
-                    alert(resp.error)
+                .catch((error) => {
+                    console.log(error);
                 })
         } else {
             alert("Preencha todos os dados");
