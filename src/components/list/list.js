@@ -1,42 +1,47 @@
 import Button from "../button/button";
 import "./list.css";
 
-function List({ content, onClick, btn }) {
+function List({ content, onClick, isLoading }) {
+    return (
+        isLoading ?
+            (<div className="spinner-container">
+                <div className="loading-spinner">
+                </div>
+            </div>) :
 
-    if (content.length === 0) {
-        return (
-            <section className="appointContainer">
-                <h3 className="center">Você não tem agendamentos pendentes</h3>
-            </section>
-        )
-    } else {
-        return (
-            <section className="appointContainer">
-                <h3>Seus agendamentos:</h3>
-                {content.map((appointment) => {
-                    return (
-                        <div className="appointment" key={appointment.id}>
-                            <h4 className="scheduleTitle">{appointment.servico}</h4>
+            (content.length === 0 ? (
+                <section className="appointContainer">
+                    <h3 className="center">Você não tem agendamentos pendentes</h3>
+                </section>
+            ) : (
+                <section className="appointContainer">
+                    <h3>Seus agendamentos:</h3>
+                    {content.map((appointment, key) => {
+                        return (
+                            <div className="appointment" key={key}>
+                                <h4 className="scheduleTitle">{appointment.Servico}</h4>
 
-                            <div className="scheduleContainer">
-                                <div className="scheduleInfo">
-                                    <p>Data: {appointment.data}</p>
-                                    <p>Horário: {appointment.horario}</p>
+                                <div className="scheduleContainer">
+                                    <div className="scheduleInfo">
+                                        <p>Data: {appointment.AgendamentoDataHora}H</p>
+                                        <p>Preço: R$ {appointment.Preco},00</p>
+                                    </div>
+
+                                    <Button
+                                        variant="secondary"
+                                        onClick={(e) => onClick(e)}
+                                        type="submit"
+                                        id={appointment.AgendamentoID}
+                                    >Cancelar
+                                    </Button>
                                 </div>
-
-                                <Button
-                                    variant="secondary"
-                                    onClick={(e) => onClick(e, appointment.key)}
-                                    type="submit"
-                                >Cancelar
-                                </Button>
                             </div>
-                        </div>
-                    )
-                })}
-            </section>
-        )
-    }
+                        )
+                    })}
+                </section>
+            ))
+    )
 }
+
 
 export default List;

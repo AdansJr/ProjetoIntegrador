@@ -7,7 +7,7 @@ import Button from "../../components/button/button";
 import Header from "../../components/header/header";
 import List from "../../components/list/list";
 
-import { getSchedule } from "../../services/services";
+import { loadMySchedules } from "../../services/services";
 import { deleteSchedule } from "../../services/services";
 
 
@@ -17,9 +17,11 @@ const HomePage = () => {
     const navigate = useNavigate();
 
     const [allSchedules, setAllSchedules] = useState([]);
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        getSchedule(userID).then((list) => {
+        loadMySchedules(userID).then((list) => {
+            setIsLoading(false);
             setAllSchedules(list);
         })
             .catch((error) => {
@@ -32,18 +34,21 @@ const HomePage = () => {
         navigate("/agendamento");
     };
 
-    const handleDelete = (e, key) => {
+    const handleDelete = (e) => {
         e.preventDefault();
-        deleteSchedule(key).then(() => {
-            getSchedule(userID).then((list) => {
+        const id = e.target.id;
+        deleteSchedule(id).then(() => {
+            loadMySchedules(userID).then((list) => {
+
                 setAllSchedules(list);
             })
                 .catch((error) => {
                     alert(error);
                 });;
+        }).catch((e) => {
+            console.log("erro: ", e)
         })
     };
-
 
     return (
         <section id="home" className="container home">
@@ -51,8 +56,8 @@ const HomePage = () => {
 
             <main className="main gradient">
                 <h1 className="welcome">Olá, {localStorage.getItem('userName')}</h1>
-               
-                <List content={allSchedules} onClick={handleDelete}></List>
+
+                <List content={allSchedules} isLoading={isLoading} onClick={handleDelete}></List>
 
                 <div className="quero_agendar">
                     <p>Faça seu Agendamento</p>
