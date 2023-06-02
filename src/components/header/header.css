@@ -1,0 +1,7 @@
+.logo {
+    width: 100%;
+    max-width: 428px;
+    height:147px;
+    z-index: 1;
+    position: absolute;
+}
